@@ -3,14 +3,13 @@
 extern void Configurar_SSI2(void)
 {
     
-    SYSCTL->RCGCSSI |= (1<<2); //se activa el Modulo 2 SSI2
-    SYSCTL->RCGCGPIO |= (1<<3);//Puerto D
-    GPIOD->DIR |= (0<<3) | (1<<2) | (1<<1) | (0<<0); //selector es salida = 1
-    GPIOD->AFSEL = (1<<3)|(1<<2)|(1<<1)|(1<<0); //antes del 4 al 7
-    GPIOD->PCTL = (GPIOD->PCTL&0xFFFF0000) | 0x0000FFFF; // tabla p.688
-    //GPIOD_AHB->PCTL &= 0xFFFF0000;
-    //GPIOD_AHB->PCTL |= 0x0000FFFF; // tabla p.688
-    GPIOD->DEN |= (1<<0)|(1<<1)|(1<<2)|(1<<3);
+    SYSCTL->RCGCSSI |= (1<<2); //ACTIVAR MODULO 2 SSI2
+    SYSCTL->RCGCGPIO |= (1<<3);//Puerto B
+    GPIOD->DIR |= (0<<4) | (1<<5) | (0<<6) | (1<<7) ; //selector es salida = 1
+    GPIOD->AFSEL = (1<<4)|(1<<5)|(1<<6)|(1<<7); //Pines del 4 al 7
+    GPIOD->PCTL = (GPIOD->PCTL&0xFF0000FF) | 0x00222200; // tabla p.688
+    
+    GPIOD->DEN |= (1<<4)|(1<<5)|(1<<6)|(1<<7); // DIGITAL ENABLE DE DICHOS PINES
     //                MISO    MOSI    CS    SCLK
 
    // GPIOD_AHB->DATA |= (1<<5); //registrar CS
