@@ -1,5 +1,7 @@
 #include "lib/include.h"
 
+// NOSOTROS TRABAJAMOS CON UN SENSOR MAX6675 QUE ES UN SENSOR DE TEMPERATURA QUE TRABAJA A 4.3 MHz y nosotros lo redondeamos a 4MHz
+// LA CONFIGURACION VIENE EN EL ARCHIVO SSI.c
 
 int main(void)
 {   
