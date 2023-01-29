@@ -19,12 +19,13 @@ extern void Configurar_SSI2(void)
     
     SSI2->CR1 = (0<<1); //SSE=0 deshabilitar modulo
     SSI2->CR1 = (0<<2); //MS = 0 modo maestro
-    SSI2->CC = (0x0<<0); //system clock = 50MHz
+    SSI2->CC = (0x9<<0); //system clock = 50MHz
     //SSInClk = SysClk / (CPSDVSR * (1 + SCR))
+    // 4MHz = 20MHz / 1*(1 + 4) // NUESTRA PROPUESTA PARA 4 MHz
     //2 500 000 = 50 000 000/(2*(1+SCR))
     // SCR = (50 000 000/2 500 000*2) - 1 = 9
-    SSI2->CPSR =0x2; // 2.5 MHZ
-    SSI2->CR0 = (0x9<<8) | 0x07; // datos de 8 bits
+    SSI2->CPSR =0x1; //NUMERO QUE ASIGNO EL PROFE CPSDVSR
+    SSI2->CR0 = (0x4<<8) | (0x1<<6) | (0x1<<4) | (0xB<<0); // datos de 8 bits  // 0x4 Viene del SCR que vale 4 luego en el segundo argumento 0x1 es nuetsro modulo de polaridad y El 0xB es el numero de bits a leer que seria 12
     SSI2->CR1 |= (1<<1); //SSE=1 habilitar modoulo p.961 (0x02)
 }
 
@@ -52,7 +53,7 @@ extern uint8_t SPI_read(void)
     data = SSI2->DR;
     return data;
 }
-
+// LECTURA DE DATOS
 extern uint8_t SPI_read_data(uint8_t reg)
 {
     uint8_t data = 0;
